@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('product_counts', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-
             $table->float('count');
             $table->string('varchar');
             $table->foreignId('color');
