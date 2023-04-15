@@ -14,21 +14,28 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         Category::create([
-            'name'=> 'moshinalar'
+            'user_id'=> 2,
+            'name'=> [
+                'uz' => 'moshinalar',
+                'ru' => 'ru_moshinalar',
+            ]
         ]);
         Category::create([
+            'user_id'=> 2,
             'name'=> [
                 'uz' => 'kiyimlar',
                 'ru' => 'ru_kiyimlar'
             ]
         ]);
         Category::create([
+            'user_id'=> 2,
             'name'=> [
                 'uz' => 'moshinalar',
                 'ru' => 'ru_moshinlar'
             ]
         ]);
         Category::create([
+            'user_id'=> 2,
             'name'=> [
                 'uz' => 'poyabzallar',
                 'ru' => 'ru_poyabzallar'
