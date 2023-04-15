@@ -11,7 +11,7 @@ class StoreAdressRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,23 @@ class StoreAdressRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'region' => 'required|string',
+            'street' => 'required|string',
+            'home' => 'required|string',
+            'district' => 'required',
         ];
+    }
+    public function messages()
+    {
+        return [
+            'region.required' => 'Region toldirishingiz majburiy',
+            'region.string' => 'Region ustuni satr bolishi kerak',
+            'street.required' => 'Street toldirishingiz majburiy',
+            'street.string' => 'street ustuni satr bolishi kerak',
+            'home.required' => 'Home toldirishingiz majburiy',
+            'home.string' => 'home ustuni satr bolishi kerak',
+            'district.required' => 'District toldirishingiz majburiy',
+        ];
+
     }
 }

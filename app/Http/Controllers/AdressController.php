@@ -5,31 +5,26 @@ namespace App\Http\Controllers;
 use App\Models\Adress;
 use App\Http\Requests\StoreAdressRequest;
 use App\Http\Requests\UpdateAdressRequest;
+use App\Interfaces\IAddressRepository;
 
 class AdressController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct(protected IAddressRepository $addressRepository)
+    {
+    $this->middleware('auth:sanctum');
+    }
+
     public function index()
     {
-        //
+        return response()->json([
+            'success'=> true,
+            'data' => $this->addressRepository->getAllAddress()
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreAdressRequest $request)
     {
-        //
+
     }
 
     /**
@@ -40,17 +35,7 @@ class AdressController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Adress $adress)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateAdressRequest $request, Adress $adress)
     {
         //
