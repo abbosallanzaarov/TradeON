@@ -9,6 +9,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Adress extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'user_id',
+        'home',
+        'region',
+        'district',
+        'street'
+    ];
     public function user():BelongsTo
     {
         return $this->belongsTo(User::class);

@@ -5,26 +5,38 @@ namespace App\Http\Controllers;
 use App\Models\Adress;
 use App\Http\Requests\StoreAdressRequest;
 use App\Http\Requests\UpdateAdressRequest;
+use App\Http\Resources\AddressResourse;
 use App\Interfaces\IAddressRepository;
+use Illuminate\Http\Request;
 
 class AdressController extends Controller
 {
     public function __construct(protected IAddressRepository $addressRepository)
     {
-    $this->middleware('auth:sanctum');
+
     }
 
     public function index()
     {
         return response()->json([
             'success'=> true,
-            'data' => $this->addressRepository->getAllAddress()
+            'data' => AddressResourse::collection($this->addressRepository->getAllAddress())
         ]);
     }
 
     public function store(StoreAdressRequest $request)
     {
-
+        try {
+            return response()->json([
+                'success'=> true,
+                'data' =>  $this->addressRepository->createAddress($request->all())
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'error' => $th->getMessage()
+            ]);
+        }
     }
 
     /**
@@ -36,9 +48,9 @@ class AdressController extends Controller
     }
 
 
-    public function update(UpdateAdressRequest $request, Adress $adress)
+    public function update(Request $request, Adress $address)
     {
-        //
+        
     }
 
     /**
