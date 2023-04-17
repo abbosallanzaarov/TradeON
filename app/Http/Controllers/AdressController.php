@@ -13,7 +13,7 @@ class AdressController extends Controller
 {
     public function __construct(protected IAddressRepository $addressRepository)
     {
-
+        $this->middleware('auth:sanctum' );
     }
 
     public function index()
@@ -50,14 +50,36 @@ class AdressController extends Controller
 
     public function update(Request $request, Adress $address)
     {
-        
+        try {
+            return response()->json([
+                'success'=> true,
+                'data' =>  $this->addressRepository->updateAddress( $address->id , $request->all())
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'error' => $th->getMessage()
+            ]);
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Adress $adress)
+    public function destroy(Adress $address)
     {
-        //
+        try {
+            $this->addressRepository->deleteAddress( $address->id );
+            return response()->json([
+                'success'=> true,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'error' => $th->getMessage()
+            ]);
+        }
     }
 }
+

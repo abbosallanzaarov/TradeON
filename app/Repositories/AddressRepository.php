@@ -21,13 +21,19 @@ class AddressRepository implements IAddressRepository
             'street' => $address['street']
         ]);
     }
-    public function updateAddress(int $addressId)
+    public function updateAddress(int $addressId , array $data)
     {
-
+        $update = Adress::find($addressId);
+        return $update->update([
+            'region' => $data['region'],
+            'home'  => $data['home'],
+            'street' => $data['street'],
+            'district'=> $data['district'],
+        ]);
     }
     public function deleteAddress(int $addressId)
     {
-
+        $delete = Adress::find($addressId)->delete();
     }
 
 }

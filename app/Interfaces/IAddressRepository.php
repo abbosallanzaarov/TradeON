@@ -7,7 +7,7 @@ interface IAddressRepository
 
     public function createAddress(array $address);
 
-    public function updateAddress(int $addressId);
+    public function updateAddress(int $addressId , array $data);
 
 
     public function deleteAddress(int $addressId);
