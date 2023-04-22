@@ -5,60 +5,30 @@ namespace App\Http\Controllers;
 use App\Models\Driver;
 use App\Http\Requests\StoreDriverRequest;
 use App\Http\Requests\UpdateDriverRequest;
+use App\Interfaces\IDriverRepository;
 
 class DriverController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
+    public function __construct(protected IDriverRepository $driverRepository)
+    {
+        $this->middleware('auth:sanctum');
+    }
+
     public function index()
     {
-        //
+        return api_response($this->driverRepository->getAllData() , true , 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreDriverRequest $request)
     {
-        //
+        dd('ddd');
+        return api_response($this->driverRepository->add($request->all()) , true, 200);
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Driver $driver)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Driver $driver)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateDriverRequest $request, Driver $driver)
     {
         //
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Driver $driver)
     {
         //

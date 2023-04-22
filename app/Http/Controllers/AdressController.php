@@ -18,49 +18,17 @@ class AdressController extends Controller
 
     public function index()
     {
-        return response()->json([
-            'success'=> true,
-            'data' => AddressResourse::collection($this->addressRepository->getAllAddress())
-        ]);
+        return api_response(AddressResourse::collection($this->addressRepository->getAllAddress()), true , 200);
     }
 
     public function store(StoreAdressRequest $request)
     {
-        try {
-            return response()->json([
-                'success'=> true,
-                'data' =>  $this->addressRepository->createAddress($request->all())
-            ]);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'success' => false,
-                'error' => $th->getMessage()
-            ]);
-        }
+    return api_response($this->addressRepository->createAddress($request->all()) , true , 200);
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Adress $adress)
-    {
-        //
-    }
-
 
     public function update(Request $request, Adress $address)
     {
-        try {
-            return response()->json([
-                'success'=> true,
-                'data' =>  $this->addressRepository->updateAddress( $address->id , $request->all())
-            ]);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'success' => false,
-                'error' => $th->getMessage()
-            ]);
-        }
+        return api_response($this->addressRepository->updateAddress($address->id , $request->all()) , true, 201);
     }
 
 
@@ -69,17 +37,8 @@ class AdressController extends Controller
      */
     public function destroy(Adress $address)
     {
-        try {
-            $this->addressRepository->deleteAddress( $address->id );
-            return response()->json([
-                'success'=> true,
-            ]);
-        } catch (\Throwable $th) {
-            return response()->json([
-                'success' => false,
-                'error' => $th->getMessage()
-            ]);
-        }
+        api_response($this->addressRepository->deleteAddress($address->id) , true , 204);
+        return delete_response();
     }
 }
 

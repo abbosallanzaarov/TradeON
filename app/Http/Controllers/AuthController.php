@@ -35,7 +35,8 @@ class AuthController extends Controller
             'email'=>'unique:users|email',
             'phone'=>'required|unique:users',
             'image'=>'string|nullable',
-            'password'=>'required|min:8|max:16'
+            'password'=>'required|min:8|max:16',
+            'role' => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json([
@@ -45,6 +46,7 @@ class AuthController extends Controller
         }
 
         $store = User::create($request->input());
+        $store->roles()->attach($request->role);
 
         return response()->json([
             'token'=> $store->createToken($request->email)->plainTextToken,

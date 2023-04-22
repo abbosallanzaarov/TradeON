@@ -5,60 +5,32 @@ namespace App\Http\Controllers;
 use App\Models\Seller;
 use App\Http\Requests\StoreSellerRequest;
 use App\Http\Requests\UpdateSellerRequest;
+use App\Http\Resources\SellerResource;
+use App\Interfaces\ISellerRepository;
+use Illuminate\Http\Request;
 
 class SellerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct(protected ISellerRepository $sellerRepository)
+    {
+        $this->middleware('auth:sanctum');
+    }
     public function index()
     {
-        //
+
+        return api_response(SellerResource::collection($this->sellerRepository->getAllData()), true ,200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(Request $request)
     {
-        //
+        return api_response($this->sellerRepository->add($request->all()), true ,200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreSellerRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Seller $seller)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Seller $seller)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateSellerRequest $request, Seller $seller)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Seller $seller)
     {
         //

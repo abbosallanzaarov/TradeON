@@ -33,7 +33,7 @@ class AddressRepository implements IAddressRepository
     }
     public function deleteAddress(int $addressId)
     {
-        $delete = Adress::find($addressId)->delete();
+       return $delete = Adress::find($addressId)->delete();
     }
 
 }
